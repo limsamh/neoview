@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pydantic-settings
+SPARQLWrapper
+motor
+rdflib
+networkx
+python-dotenv
