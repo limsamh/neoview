@@ -17,6 +17,27 @@ app.add_middleware(
 app.include_router(query.router)
 app.include_router(config.router)
 
-@app.get("/health")
+
+@app.get("/")
+def root():
+    return {"message": "Neoview API is running"}
+
+@app.get("/fuseki/status")
+def check_fuseki():
+    try:
+        r = requests.get(f"{settings.sparql_endpoint}/sparql")
+        return {"status": r.status_code}
+    except Exception as e:
+        return {"error": str(e)}
+
+@app.get("/mongo/status")
+def check_mongo():
+    try:
+        db.command("ping")
+        return {"status": "connected"}
+    except Exception as e:
+        return {"error": str(e)}
+
+@app.get("/health-check")
 def health_check():
     return {"status": "running", "app": settings.app_name}

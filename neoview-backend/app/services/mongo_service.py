@@ -1,11 +1,11 @@
 # Async MongoDB operations
 
-from motor.motor_asyncio import AsyncIOMotorClient
+from pymongo import AsyncMongoClient
 from app.core.settings import settings
 
 class MongoService:
 
-    client = AsyncIOMotorClient(settings.mongodb_uri)
+    client = AsyncMongoClient(settings.mongodb_uri)
     db = client[settings.mongodb_db]
 
     async def save_query(name: str, query: str):
