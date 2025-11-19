@@ -1,0 +1,16 @@
+.table-container {
+    height: 100%;
+    overflow: auto;
+    background: white;
+}
+
+table {
+    width: 100%;
+}
+
+.no-data {
+    padding: 20px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.54);
+    font-style: italic;
+}

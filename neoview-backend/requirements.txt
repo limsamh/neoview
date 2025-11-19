@@ -1,9 +1,0 @@
-fastapi
-uvicorn
-pymongo
-pydantic-settings
-SPARQLWrapper
-motor
-rdflib
-networkx
-python-dotenv

@@ -1,0 +1,17 @@
+:host {
+    display: block;
+    height: 100%;
+}
+
+.font-mono {
+    font-family: monospace;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+textarea {
+    min-height: 150px;
+    resize: none;
+}

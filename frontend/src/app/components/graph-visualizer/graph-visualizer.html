@@ -1,0 +1,14 @@
+<mat-card class="h-full flex flex-col">
+    <mat-card-header>
+        <mat-card-title>Graph Visualization</mat-card-title>
+        <mat-card-subtitle *ngIf="data?.results?.bindings?.length">
+            {{ data.results.bindings.length }} results
+        </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content class="flex-1 relative bg-slate-50 min-h-0">
+        <div #networkContainer class="absolute inset-0"></div>
+        <div *ngIf="!data" class="absolute inset-0 flex items-center justify-center text-slate-400">
+            <p>Run a query to visualize data</p>
+        </div>
+    </mat-card-content>
+</mat-card>

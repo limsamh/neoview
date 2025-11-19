@@ -1,0 +1,41 @@
+<h2 mat-dialog-title>Data Source Configuration</h2>
+<mat-dialog-content class="mat-typography flex flex-col gap-4 min-w-[400px]">
+
+    <div class="flex flex-col gap-2">
+        <label class="font-medium text-slate-700">Source Type</label>
+        <mat-radio-group [(ngModel)]="useLocal" class="flex flex-col gap-2">
+            <mat-radio-button [value]="false">Remote SPARQL Endpoint</mat-radio-button>
+            <mat-radio-button [value]="true">Local Data (.ttl file)</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div *ngIf="!useLocal" class="mt-2">
+        <mat-form-field appearance="outline" class="w-full">
+            <mat-label>SPARQL Endpoint URL</mat-label>
+            <input matInput [(ngModel)]="endpoint" placeholder="https://query.wikidata.org/sparql">
+            <mat-icon matSuffix>link</mat-icon>
+        </mat-form-field>
+    </div>
+
+    <div *ngIf="useLocal" class="mt-2 p-4 bg-slate-50 rounded-lg border border-slate-200">
+        <h3 class="text-sm font-medium mb-2">Upload Data</h3>
+        <div class="flex gap-2 items-center">
+            <input type="file" (change)="onFileSelected($event)" accept=".ttl" class="text-sm">
+            <button mat-raised-button color="primary" (click)="onUpload()" [disabled]="!selectedFile || uploading">
+                <mat-icon>upload</mat-icon> Upload
+            </button>
+        </div>
+        <mat-progress-bar *ngIf="uploading" mode="indeterminate" class="mt-2"></mat-progress-bar>
+        <p *ngIf="uploadSuccess" class="text-green-600 text-sm mt-2 flex items-center gap-1">
+            <mat-icon class="text-sm h-4 w-4">check_circle</mat-icon> {{ uploadSuccess }}
+        </p>
+        <p *ngIf="uploadError" class="text-red-600 text-sm mt-2 flex items-center gap-1">
+            <mat-icon class="text-sm h-4 w-4">error</mat-icon> {{ uploadError }}
+        </p>
+    </div>
+
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="onCancel()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="onSave()" cdkFocusInitial>Save Configuration</button>
+</mat-dialog-actions>

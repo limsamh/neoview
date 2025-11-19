@@ -1,0 +1,39 @@
+<mat-toolbar color="primary" class="shadow-md z-10 relative">
+  <span>NeoView</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="openSettings()" matTooltip="Data Source Settings">
+    <mat-icon>settings</mat-icon>
+  </button>
+  <button mat-icon-button (click)="toggleTheme()" id="theme-toggle-btn">
+    <mat-icon>brightness_6</mat-icon>
+  </button>
+  <button mat-button (click)="viewMode = 'graph'" [color]="viewMode === 'graph' ? 'accent' : undefined">
+    <mat-icon>hub</mat-icon> Graph
+  </button>
+  <button mat-button (click)="viewMode = 'table'" [color]="viewMode === 'table' ? 'accent' : undefined">
+    <mat-icon>table_chart</mat-icon> Table
+  </button>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav mode="side" opened class="sidenav shadow-md">
+    <app-saved-queries (selectQuery)="onSelectQuery($event)" #savedQueries></app-saved-queries>
+  </mat-sidenav>
+  <mat-sidenav-content class="content">
+    <div class="grid-container">
+      <div class="editor-section">
+        <app-query-editor [query]="selectedQueryString" [queryName]="selectedQueryName"
+          [description]="selectedQueryDescription" (runQuery)="onRunQuery($event)"
+          (saveQuery)="onSaveQuery($event); savedQueries.loadQueries()"></app-query-editor>
+      </div>
+      <div class="visualizer-section">
+        <div class="view-container" [class.hidden]="viewMode !== 'graph'">
+          <app-graph-visualizer [data]="graphData"></app-graph-visualizer>
+        </div>
+        <div class="view-container" [class.hidden]="viewMode !== 'table'">
+          <app-result-table [data]="graphData"></app-result-table>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
